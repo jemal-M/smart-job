@@ -1,9 +1,10 @@
 import { Router } from "express";
 import { createEmployer, deleteEmployer, getEmployerById, getEmployers, updateEmployer } from "../controllers/EmployerController.js";
+import { authMiddleWare } from "../middleware/authMiddleware.js";
 const employeeRoute = Router();
-employeeRoute.get("/",getEmployers);
-employeeRoute.post("/create", createEmployer);
-employeeRoute.get("/:id", getEmployerById);
-employeeRoute.put("/:id", updateEmployer);
-employeeRoute.delete("/:id", deleteEmployer);
+employeeRoute.get("/",authMiddleWare,getEmployers);
+employeeRoute.post("/create", authMiddleWare,createEmployer);
+employeeRoute.get("/:id", authMiddleWare,getEmployerById);
+employeeRoute.put("/:id", authMiddleWare,updateEmployer);
+employeeRoute.delete("/:id", authMiddleWare,deleteEmployer);
 export default employeeRoute;

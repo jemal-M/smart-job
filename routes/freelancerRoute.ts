@@ -1,9 +1,10 @@
 import { Router } from "express";
 import { createFreelancer, deleteFreelancer, getFreelancerById, getFreelancers, updateFreelancer } from "../controllers/FreelancerController.js";
+import { authMiddleWare } from "../middleware/authMiddleware.js";
 const freelancerRouter=Router();
-freelancerRouter.get("/",getFreelancers);
-freelancerRouter.post("/create", createFreelancer);
-freelancerRouter.get("/:id", getFreelancerById);
-freelancerRouter.delete("/:id", deleteFreelancer);
-freelancerRouter.put("/:id", updateFreelancer);
+freelancerRouter.get("/",authMiddleWare,getFreelancers);
+freelancerRouter.post("/create", authMiddleWare,createFreelancer);
+freelancerRouter.get("/:id",authMiddleWare, getFreelancerById);
+freelancerRouter.delete("/:id",authMiddleWare, deleteFreelancer);
+freelancerRouter.put("/:id",authMiddleWare, updateFreelancer);
 export default freelancerRouter;

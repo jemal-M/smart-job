@@ -153,13 +153,16 @@ export const getMessagesByChatIdAndSenderId = async (
   try {
     const chatId = req.params.chatId;
     const senderId = req.params.senderId;
-    if (!chatId || !senderId) {
+    if (!chatId || typeof chatId !== 'string' || !senderId || typeof senderId !== 'string') {
       return res.status(400).json({
         success: false,
         message: "chatId and senderId are required",
       });
     }
-    const messages = await Message.find({ chatId, senderId });
+    const messages = await Message.find({ 
+      chatId: new mongoose.Types.ObjectId(chatId), 
+      senderId: new mongoose.Types.ObjectId(senderId) 
+    });
     res.json({
       success: true,
       messages,
@@ -178,13 +181,16 @@ export const getMessagesByChatIdAndReceiverId = async (
   try {
     const chatId = req.params.chatId;
     const receiverId = req.params.receiverId;
-    if (!chatId || !receiverId) {
+    if (!chatId || typeof chatId !== 'string' || !receiverId || typeof receiverId !== 'string') {
       return res.status(400).json({
         success: false,
         message: "chatId and receiverId are required",
       });
     }
-    const messages = await Message.find({ chatId, receiverId });
+    const messages = await Message.find({ 
+      chatId: new mongoose.Types.ObjectId(chatId), 
+      receiverId: new mongoose.Types.ObjectId(receiverId) 
+    });
     res.json({
       success: true,
       messages,
@@ -203,13 +209,16 @@ export const getMessagesBySenderIdAndReceiverId = async (
   try {
     const senderId = req.params.senderId;
     const receiverId = req.params.receiverId;
-    if (!senderId || !receiverId) {
+    if (!senderId || typeof senderId !== 'string' || !receiverId || typeof receiverId !== 'string') {
       return res.status(400).json({
         success: false,
         message: "senderId and receiverId are required",
       });
     }
-    const messages = await Message.find({ senderId, receiverId });
+    const messages = await Message.find({ 
+      senderId: new mongoose.Types.ObjectId(senderId), 
+      receiverId: new mongoose.Types.ObjectId(receiverId) 
+    });
     res.json({
       success: true,
       messages,

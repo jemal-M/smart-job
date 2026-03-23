@@ -7,7 +7,7 @@ dotenv.config();
 connectDB();
 const app = express();
 app.use(cors());
-app.get("/",(req:Request,res:Response)=>{
+app.get("/health",(req:Request,res:Response)=>{
     res.send("hello world");
 });
 app.listen(process.env.PORT,()=>{
